@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Weathers</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="/news">News</a>
+                </li>
+              </ul>
+              <form class="d-flex" action="/search-pincode" method="post">
+                <input class="form-control me-2" type="search" placeholder="Search via Pincode" name="pincode" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">GO</button>
+              </form>
+        </div>
+    </div>
+</nav>
+
+<div class="myNews">
+    <div class="container">
+        <div class="row my-5">
+            {% for item in data %}
+            <!--  -->
+            <div class="col-md-4">
+                <div class="card mb-4 box-shadow my-3 mx-3">
+                    <img class="card-img-top" alt="Thumbnail [100%x225]"
+                        style="height: 225px; width: 100%; display: block; padding-bottom: 14px;" src={{
+                        item["urlToImage"] }} data-holder-rendered="true">
+                    <div class="card-body">
+                        <p class="card-text">{{ item["title"] }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="{{ item["url"] }}">View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endblock content %}
