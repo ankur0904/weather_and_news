@@ -17,10 +17,10 @@ def myfun():
     cityName = request.form.get("cityName")
     url = f"https://api.openweathermap.org/data/2.5/weather?q={cityName}&appid={api.key1}&units=metric"
     data = requests.get(url)
-    
     # Converting into python object
     myData = json.loads(data.content)
-    return render_template("weather.html",city=cityName,data=myData)
+    img = myData["weather"][0]["icon"]
+    return render_template("weather.html",city=cityName,data=myData,img=img)
 
 # Search via pincode route
 @app.route('/search-pincode',methods=["POST"])
@@ -29,9 +29,12 @@ def myfunction():
     url = f"https://api.openweathermap.org/data/2.5/weather?zip={pincode}&appid={api.key1}&units=metric"
     data = requests.get(url)
 
+    
     # Converting into python object
-    myData = json.loads(data.content)  
-    return render_template("weather_pincode.html",pin=pincode,data=myData)
+    myData = json.loads(data.content) 
+    image = myData["weather"][0]["icon"]
+    # print(img)
+    return render_template("weather_pincode.html",pin=pincode,data=myData,image=image)
 
 # News route
 @app.route("/news",methods=["GET"])
@@ -41,3 +44,13 @@ def newsfun():
     response = requests.get(url)
     newsData = json.loads(response.content)
     return render_template("news.html",data=newsData["articles"])
+
+@app.errorhandler(500)
+def page_not_found(e):
+    return render_template("500.html"), 500
+
+    
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template("404.html"), 404
+

@@ -19,7 +19,7 @@
         </li>
       </ul>
       <form class="d-flex" action="/search-pincode" method="post">
-        <input class="form-control me-2" type="search" placeholder="Search via Pincode" name="pincode" aria-label="Search">
+        <input class="form-control me-2" type="search" placeholder="Search via Zipcode" name="pincode" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">GO</button>
       </form>
     </div>
@@ -28,7 +28,7 @@
 
 <main class="form-signin">
   <form class="my-city-name-form" action="/search" method="post">
-    <img class="mb-4" src="/static/default.png" style="margin-left: 80px;" alt="img" width="120" height="120">
+    <img class="mb-4 my-img" src="/static/default.png" style="margin-left: 80px;" alt="img" width="120" height="120">
     <h1 class="h3 mb-3 fw-normal">Check the weather of your city</h1>
     <div class="form-floating city-name">
       <input type="text" class="form-control" id="floatingInput" name="cityName" placeholder="City Name">
@@ -37,7 +37,5 @@
     <button class="w-100 btn btn-lg btn-primary" type="submit">Check</button>
   </form>
 </main>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 {% endblock content %}
