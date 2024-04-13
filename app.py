@@ -2,9 +2,12 @@ from flask import Flask, render_template, request
 from newsapi import NewsApiClient
 import requests
 import json
-import api
+import os
 
 app = Flask(__name__)
+
+key1 = os.environ.get("key1")
+key2 = os.environ.get("key2")
 
 # Home route
 @app.route('/',methods=["GET"])
@@ -15,7 +18,7 @@ def my_app():
 @app.route('/search',methods=["POST"])
 def myfun():
     cityName = request.form.get("cityName")
-    url = f"https://api.openweathermap.org/data/2.5/weather?q={cityName}&appid={api.key1}&units=metric"
+    url = f"https://api.openweathermap.org/data/2.5/weather?q={cityName}&appid={key1}&units=metric"
     data = requests.get(url)
     # Converting into python object
     myData = json.loads(data.content)
@@ -26,7 +29,7 @@ def myfun():
 @app.route('/search-pincode',methods=["POST"])
 def myfunction():
     pincode = request.form.get("pincode")
-    url = f"https://api.openweathermap.org/data/2.5/weather?zip={pincode}&appid={api.key1}&units=metric"
+    url = f"https://api.openweathermap.org/data/2.5/weather?zip={pincode}&appid={key1}&units=metric"
     data = requests.get(url)
 
     
@@ -40,7 +43,7 @@ def myfunction():
 @app.route("/news",methods=["GET"])
 def newsfun():
     
-    url = (f'https://newsapi.org/v2/top-headlines?q=politics&from=2022-09-10&apiKey={api.key2}')
+    url = (f'https://newsapi.org/v2/top-headlines?q=politics&from=2022-09-10&apiKey={key2}')
     response = requests.get(url)
     newsData = json.loads(response.content)
     return render_template("news.html",data=newsData["articles"])
@@ -54,3 +57,5 @@ def page_not_found(e):
 def page_not_found(e):
     return render_template("404.html"), 404
 
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
